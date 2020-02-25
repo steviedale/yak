@@ -13,7 +13,7 @@ endif()
 
 find_package(CUDA 9.0 REQUIRED)
 find_package(OpenCV 3 REQUIRED COMPONENTS core highgui)
-find_package(PCL 1.8 REQUIRED COMPONENTS common io geometry)
+find_package(PCL 1.8.1 REQUIRED EXACT COMPONENTS common io geometry)
 
 find_package(OpenMP REQUIRED)
 if(NOT TARGET OpenMP::OpenMP_CXX)
