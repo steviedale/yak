@@ -14,6 +14,7 @@ endif()
 find_package(CUDA 9.0 REQUIRED)
 find_package(OpenCV 3 REQUIRED COMPONENTS core highgui)
 find_package(PCL 1.8.1 REQUIRED EXACT COMPONENTS common io geometry)
+#find_package(PCL 1.9 REQUIRED)
 
 find_package(OpenMP REQUIRED)
 if(NOT TARGET OpenMP::OpenMP_CXX)
@@ -70,6 +71,9 @@ cuda_add_library(${PROJECT_NAME}
   src/cuda/imgproc.cu
   src/cuda/proj_icp.cu
   src/cuda/tsdf_volume.cu)
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
+
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>")
@@ -80,7 +84,7 @@ target_link_libraries(${PROJECT_NAME}
   ${OpenCV_LIBRARIES}
   ${CUDA_LIBRARIES}
   ${CUDA_CUDA_LIBRARY}
-  ${PCL_LIBRARIES}  # BUG: shouldn't need this, but get -fPIC errors if it's not included
+  #${PCL_LIBRARIES}  # BUG: shouldn't need this, but get -fPIC errors if it's not included
   Eigen3::Eigen)
 list(APPEND PACKAGE_LIBRARIES ${PROJECT_NAME})
 
